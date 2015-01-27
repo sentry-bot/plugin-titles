@@ -22,25 +22,23 @@ Or install it yourself as:
 
 ```ruby
 require 'cinch'
-require 'cinch/plugins/title'
+require 'cinch/plugins/sentry/titles'
 
 bot = Cinch::Bot.new do
   configure do |c|
-    c.nick = "HTMLSentry"
-    c.server = "irc.freenode.org"
-    c.channels = ["#cinchbots"]
-    c.plugins.plugins = [Cinch::Plugins::Sentry::Title]
+    c.nick = "Raknet"
+    c.server = "irc.oftc.net"
+    c.channels = ["#cinchdev"]
+    c.plugins.plugins = [Cinch::Plugins::Sentry::Titles]
     c.plugins.options = {
-      Cinch::Plugins::Sentry::Title => {
-        "ignore" => [
+      Cinch::Plugins::Sentry::Titles => {
+        "blacklist" => [
           "facebook.com"
         ],
-        "enable" => [
+        "whitelist" => [
           "reddit.com",
-          "redd.it"
-        ],
-        "max_redirects" => 5,
-        "user_agent" => "cinch-title/0.3.1"
+          "www.reddit.com"
+        ]
       }
     }
   end
