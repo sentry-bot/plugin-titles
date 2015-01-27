@@ -1,13 +1,16 @@
 require 'cinch'
 require 'nokogiri'
 require 'uri'
-require 'cgi'
+require "open-uri"
+require "open_uri_redirections"
+require "twitter-text"
 
 module Cinch
   module Plugins
     module Sentry
-      class Title
+      class Titles
         include Cinch::Plugin
+        include Twitter::Extractor
 
         # Listen to all events in the channel
         listen_to :channel
@@ -36,7 +39,7 @@ module Cinch
             "www.youtube.com",
             "youtube.com",
             "youtu.be",
-            "www.youtu.be"
+            "www.youtu.be",
             "github.com",
             "www.github.com"]
 
@@ -68,7 +71,7 @@ module Cinch
           # Handle all urls individually
           urls.each do |url|
             # Parse the url
-            uri = URI.parse(url.to_url)
+            uri = URI.parse(url.to_s)
 
             # Skip all blacklisted hosts that are not explicitly allowed
             next if blacklist.include?(uri.host) and not whitelist.include?(uri.host)
@@ -77,11 +80,11 @@ module Cinch
             next if extensions.include?(File.extname(uri.path))
 
             # Load the page
-            page = Nokogiri::HTML(open(url.to_url, :allow_redirections => :all))
+            page = Nokogiri::HTML(open(url.to_s, :allow_redirections => :all))
 
             # Send the title to the channel
             m.reply("[%s] %s" % [
-              Format(:green, "LINK")
+              Format(:green, "LINK"),
               Format(:bold, page.css("title").text.strip)
               ])
           end
