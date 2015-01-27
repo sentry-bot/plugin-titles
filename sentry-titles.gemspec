@@ -1,7 +1,7 @@
 # coding: utf-8
 
 Gem::Specification.new do |spec|
-  spec.name          = "sentry-title"
+  spec.name          = "sentry-titles"
   spec.version       = File.new("VERSION", 'r').read.chomp
   spec.authors       = ["jRiddick"]
   spec.email         = ["apersson.93@gmail.com"]
