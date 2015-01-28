@@ -4,6 +4,7 @@ require 'uri'
 require "open-uri"
 require "open_uri_redirections"
 require "twitter-text"
+require "sentry/helper"
 
 module Cinch
   module Plugins
@@ -71,7 +72,7 @@ module Cinch
           # Handle all urls individually
           urls.each do |url|
             # Parse the url
-            uri = URI.parse(url.to_s)
+            uri = URI.parse(URI.escape(url.to_url))
 
             # Skip all blacklisted hosts that are not explicitly allowed
             next if blacklist.include?(uri.host) and not whitelist.include?(uri.host)
