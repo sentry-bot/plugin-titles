@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "cinch"
   spec.add_dependency "open_uri_redirections"
   spec.add_dependency "twitter-text"
+  spec.add_dependency "sentry-titles"
 end
