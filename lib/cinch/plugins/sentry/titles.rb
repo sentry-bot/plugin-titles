@@ -86,7 +86,7 @@ module Cinch
             # Send the title to the channel
             m.reply("[%s] %s" % [
               Format(:green, "LINK"),
-              Format(:bold, page.css("title").text.strip.gsub(/\n/,"").gsub(/\r/,"").gsub(/\s+/,"\s"))
+              Format(:bold, page.css("title")[0].text.strip.gsub(/\n/,"").gsub(/\r/,"").gsub(/\s+/,"\s"))
               ])
           end
         end
